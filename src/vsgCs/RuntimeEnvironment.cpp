@@ -26,15 +26,18 @@ SOFTWARE.
 
 #include "OpThreadTaskProcessor.h"
 #include "Tracing.h"
-#include "UrlAssetAccessor.h"
 #include "vsgResourcePreparer.h"
 
 #include "vsgCs/Config.h"
+#include "vsgCs/Version.h"
+
 #include <vsg/all.h>
 
 #include <CesiumAsync/CachingAssetAccessor.h>
 #include <CesiumAsync/SqliteCache.h>
+#include <CesiumCurl/CurlAssetAccessor.h>
 
+#include <curl/curl.h>
 #include <spdlog/spdlog.h>
 
 #include <memory>
@@ -412,7 +415,14 @@ std::shared_ptr<Cesium3DTilesSelection::TilesetExternals> RuntimeEnvironment::ge
         return _externals;
     }
     auto logger = spdlog::default_logger();
-    auto urlAccessor = std::make_shared<UrlAssetAccessor>(false);
+    CesiumCurl::CurlAssetAccessorOptions accessorOptions;
+    accessorOptions.requestHeaders.emplace_back("X-Cesium-Client", "vsgCs");
+    accessorOptions.requestHeaders.emplace_back("X-Cesium-Client-Version", Version::get());
+    accessorOptions.requestHeaders.emplace_back("X-Cesium-Client-Engine", Version::getEngineVersion());
+    accessorOptions.requestHeaders.emplace_back("X-Cesium-Client-OS",
+                                                 Version::getOsVersion());
+    accessorOptions.doGlobalInit = false;
+    auto urlAccessor = std::make_shared<CesiumCurl::CurlAssetAccessor>(accessorOptions);
     std::shared_ptr<CesiumAsync::IAssetAccessor> assetAccessor;
     if (_csCacheFile.has_value())
     {

@@ -106,7 +106,7 @@ if(HAVE_SYS_UTSNAME)
 endif()
 
 target_link_libraries(${LIB_NAME} PUBLIC
-  vsg::vsg vsgImGui::vsgImGui Cesium3DTilesSelection CesiumRasterOverlays CesiumGltfContent CesiumGltfReader CesiumGltf Microsoft.GSL::GSL)
+  vsg::vsg vsgImGui::vsgImGui Cesium3DTilesSelection CesiumRasterOverlays CesiumGltfContent CesiumGltfReader CesiumGltf CesiumCurl Microsoft.GSL::GSL)
 if(CESIUM_SPDLOG_HEADER_ONLY)
   target_link_libraries(${LIB_NAME} PUBLIC spdlog::spdlog_header_only)
 else()
