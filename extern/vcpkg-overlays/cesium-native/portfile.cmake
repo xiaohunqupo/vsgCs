@@ -13,7 +13,7 @@ vcpkg_from_github(
         OUT_SOURCE_PATH SOURCE_PATH
         REPO CesiumGS/cesium-native
         REF "v${VERSION}"
-        SHA512 59f1c970ddf17f38e55c880d778107aca1b23bb92da96575372eaedc7c4d67cea5e9efd486959277cd21369451403796b120669b40d4dc627bf6c0aded3a9192
+        SHA512 c5d6146b2c4ddc299eb72c35791f2f798abfa3662b83a94ad978a698811c9a14d79bff6478bdb74582c6e137a717fe4bcf456c8470c16bb0b962094ec77466e9
         HEAD_REF main
         )
 
