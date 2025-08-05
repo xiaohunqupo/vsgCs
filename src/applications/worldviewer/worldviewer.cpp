@@ -59,6 +59,7 @@ SOFTWARE.
 #include "vsgCs/Tracing.h"
 #include "vsgCs/TracingCommandGraph.h"
 #include "vsgCs/RuntimeEnvironment.h"
+#include "vsgCs/runtimeSupport.h"
 #include "vsgCs/WorldNode.h"
 #include "UI.h"
 #include "CsApp/CsViewer.h"
@@ -103,10 +104,16 @@ public:
             std::string argString(arguments[i]);
             if (argString == "--world-file")
             {
+                if (i + 1 < arguments.argc())
+                {
+                  addVsgCsObject(arguments[++i]);
+                }
                 continue;
             }
-            if (argString.ends_with("tileset.json"))
-            {
+            if (vsgCs::isUrl(argString) ||
+                argString.ends_with("tileset.json") ||
+                (argString.ends_with(".json")
+                 && vsgCs::isTilesetJson(argString, env->options))) {
                 if (auto tilesetNode  = createTileset(argString))
                 {
                     tilesetNodes.push_back(tilesetNode);
@@ -172,8 +179,7 @@ private:
     vsg::ref_ptr<vsgCs::TilesetNode> createTileset(const std::string& argString)
     {
         std::string url;
-        if (argString.starts_with("https:") || argString.starts_with("http:")
-            || argString.starts_with("file:"))
+        if (vsgCs::isUrl(argString))
         {
             url = argString;
         }

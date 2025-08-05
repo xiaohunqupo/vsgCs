@@ -348,4 +348,14 @@ namespace vsgCs
         }
         CesiumUtility::IntrusivePointer<T> ptr;
     };
+
+    /**
+     * Returns true if string begins with https: or http:.
+     */
+    bool isRemoteUrl(const std::string &str);
+
+    /**
+     * Returns true of string is a remote URL or begins with file:
+     */
+    bool isUrl(const std::string &str);
 }

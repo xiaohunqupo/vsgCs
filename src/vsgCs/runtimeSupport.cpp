@@ -562,4 +562,14 @@ vsg::ref_ptr<vsg::Data> loadImage(CesiumUtility::IntrusivePointer<CesiumGltf::Im
     {
         _isMainThread = true;
     }
+
+    bool isRemoteUrl(const std::string &str)
+    {
+        return str.starts_with("https:") || str.starts_with("http:");
+    }
+
+    bool isUrl(const std::string &str)
+    {
+        return isRemoteUrl(str) || str.starts_with("file:");
+    }
 }

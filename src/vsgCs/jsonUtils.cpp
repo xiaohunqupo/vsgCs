@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include "jsonUtils.h"
 
+#include "runtimeSupport.h"
+
 #include <exception>
 #include <CesiumUtility/JsonHelpers.h>
 
@@ -73,6 +75,32 @@ std::string vsgCs::getStringOrError(const rapidjson::Value& json, const std::str
         return it->value.GetString();
     }
     throw std::runtime_error(errorMsg);
+}
+
+bool vsgCs::isTilesetJson(std::span<char> data)
+{
+    rapidjson::Document document;
+    document.Parse(data.data(), data.size());
+    if (document.HasParseError())
+    {
+        return false;
+    }
+    const auto itr = document.FindMember("asset");
+    if (itr == document.MemberEnd() || !itr->value.IsObject())
+    {
+        return false;
+    }
+    auto assetObj = itr->value.GetObject();
+    auto versionString
+        = CesiumUtility::JsonHelpers::getStringOrDefault(assetObj, "version", "");
+    return !versionString.empty();
+}
+
+bool vsgCs::isTilesetJson(const vsg::Path &path,
+                          const vsg::ref_ptr<const vsg::Options>& options)
+{
+    auto jsonSource = vsgCs::readFile(path, options);
+    return isTilesetJson(jsonSource);
 }
 
 // XXX Very gross workaround to static library problems...
