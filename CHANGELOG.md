@@ -1,5 +1,11 @@
 # Change Log
 
+### v?
+
+##### Breaking Changes
+
+- vsgCs now requires VSG 1.1.11 and vsgimgui 0.3.0
+
 ### v1.1.1 - 2025-06-30
 
 ##### Additions
