@@ -10,11 +10,13 @@ if(CESIUM_NATIVE_DEPS_ONLY)
 endif()
 
 vcpkg_from_github(
-        OUT_SOURCE_PATH SOURCE_PATH
-        REPO CesiumGS/cesium-native
-        REF "v${VERSION}"
-        SHA512 c5d6146b2c4ddc299eb72c35791f2f798abfa3662b83a94ad978a698811c9a14d79bff6478bdb74582c6e137a717fe4bcf456c8470c16bb0b962094ec77466e9
-        HEAD_REF main
+  OUT_SOURCE_PATH SOURCE_PATH
+  REPO CesiumGS/cesium-native
+  REF "v${VERSION}"
+  SHA512 4e30389398ee50f1454e83d9733f575a8c97479d2d3ba7fd2996a6ddbb2625406af0a29a789f8a4936ce8bb419a6dc4d13df5237f3706792ea3273be1972c8bd
+  HEAD_REF main
+  PATCHES
+  config.patch
         )
 
 vcpkg_cmake_configure(
