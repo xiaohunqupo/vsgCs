@@ -304,7 +304,7 @@ float microfacetDistribution(PBRInfo pbrInputs)
     return roughnessSq / (f * f);
 }
 
-vec3 BRDF(vec3 u_LightColor, vec3 v, vec3 n, vec3 l, vec3 h, PBRNode pbrNode, float ao)
+vec3 BRDF(vec3 u_LightColor, vec3 v, vec3 n, vec3 l, vec3 h, PBRNode pbrNode)
 {
     float unclmapped_NdotL = dot(n, l);
     vec3 reflection = -normalize(reflect(v, n));
@@ -341,8 +341,6 @@ vec3 BRDF(vec3 u_LightColor, vec3 v, vec3 n, vec3 l, vec3 h, PBRNode pbrNode, fl
     vec3 specContrib = F * G * D / (4.0 * NdotL * NdotV);
     // Obtain final intensity as reflectance (BRDF) scaled by the energy of the light (cosine law)
     vec3 color = NdotL * u_LightColor * (diffuseContrib + specContrib);
-
-    color *= ao;
 
 #ifdef VSG_EMISSIVE_MAP
     vec3 emissive = texture(emissiveMap, texCoord[0]).rgb * pbr.emissiveFactor.rgb;
@@ -508,8 +506,7 @@ void main()
             vec3 h = normalize(l+v);    // Half vector between both l and v
             float scale = brightness;
 
-            color.rgb += BRDF(lightColor.rgb * scale, v, n, l, h, pbrNode,
-                              ambientOcclusion);
+            color.rgb += BRDF(lightColor.rgb * scale, v, n, l, h, pbrNode);
         }
     }
 
@@ -529,8 +526,7 @@ void main()
             float scale = lightColor.a / distance2;
 
             color.rgb += BRDF(lightColor.rgb * scale, v, n, l, h,
-                              pbrNode,
-                              ambientOcclusion);
+                              pbrNode);
         }
     }
 
@@ -553,8 +549,8 @@ void main()
             float scale = (lightColor.a * smoothstep(lightDirection_cosOuterAngle.w, position_cosInnerAngle.w, dot_lightdirection)) / distance2;
 
             color.rgb += BRDF(lightColor.rgb * scale, v, n, l, h,
-                              pbrNode,
-                              ambientOcclusion);
+                              pbrNode);
+
         }
     }
     // Blend tiles based on blue noise dithering. At every pixel we choose to render either the fading
