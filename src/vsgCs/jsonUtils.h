@@ -26,9 +26,11 @@ SOFTWARE.
 
 #include <rapidjson/document.h>
 #include <vsg/io/Logger.h>
+#include <vsg/io/Path.h>
 
 #include <algorithm>
 #include <map>
+#include <span>
 #include <string>
 
 namespace vsgCs
@@ -137,4 +139,8 @@ namespace vsgCs
     {
         return getStringOrError(json, key, errorMsg.c_str());
     }
+
+    bool isTilesetJson(const vsg::Path &path,
+                       const vsg::ref_ptr<const vsg::Options>& options);
+    bool isTilesetJson(std::span<char> data);
 }
