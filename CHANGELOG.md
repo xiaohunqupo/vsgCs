@@ -2,6 +2,10 @@
 
 ### v?
 
+##### Breaking Changes
+
+- vsgCs now requires VSG 1.1.11 and vsgimgui 0.3.0
+
 ##### Additions
 
 - vsgCs now uses Cesium Native v0.50.0

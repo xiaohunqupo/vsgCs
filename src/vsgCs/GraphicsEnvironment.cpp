@@ -93,7 +93,7 @@ vsg::CompileResult GraphicsEnvironment::miniCompile(vsg::ref_ptr<vsg::Object> ob
     auto& viewDetailsStack = requirements.viewDetailsStack;
 
     vsg::CompileResult result;
-    result.maxSlot = requirements.maxSlot;
+    result.maxSlots = requirements.maxSlots;
     result.containsPagedLOD = requirements.containsPagedLOD;
     result.views = requirements.views;
     result.dynamicData= requirements.dynamicData;

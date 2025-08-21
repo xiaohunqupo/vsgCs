@@ -43,13 +43,13 @@ if (VULKAN_SDK)
     set(ENV{VULKAN_SDK} ${VULKAN_SDK})
 endif()
 
-set(VSG_MIN_VERSION 1.1.0)
+set(VSG_MIN_VERSION 1.1.11)
 
 find_package(vsg ${VSG_MIN_VERSION} REQUIRED)
 
 find_package(vsgXchange)
 
-set(VSGIMGUI_MIN_VERSION 0.1.0)
+set(VSGIMGUI_MIN_VERSION 0.3.0)
 
 find_package(vsgImGui ${VSGIMGUI_MIN_VERSION} REQUIRED)
 
