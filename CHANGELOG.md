@@ -4,9 +4,8 @@
 
 ##### Additions
 
-- vsgCs now use the CesiumCurl::CurlAssetAccessor from Cesium native
-  instead of vsgCs::UrlAssetAccessor. The Cesium Native class was
-  derived from UrlAssetAccessor.
+- vsgCs now uses Cesium Native v0.50.0
+- vsgCs now use the CesiumCurl::CurlAssetAccessor from Cesium Native instead of vsgCs::UrlAssetAccessor. The Cesium Native class was derived from UrlAssetAccessor.
 - vsgCs now uses Cesium Native v0.49.0
 
 ### v1.1.1 - 2025-06-30
